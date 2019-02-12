@@ -1,0 +1,36 @@
+version: "3.5"
+
+services:
+  web:
+    image: webdevops/php-nginx:7.3
+    working_dir: /app
+    ports:
+      - 80:80
+    depends_on:
+      - database
+    volumes:
+      - .:/app
+    environment:
+      WEB_DOCUMENT_ROOT: /app/public
+      WEB_DOCUMENT_INDEX: index.php
+      PHP_DATE_TIMEZONE: "Europe/Paris"
+      PHP_DISPLAY_ERRORS: 1
+
+  database:
+    image: mysql:latest
+    volumes:
+      - ./docker/mysqlconf:/etc/mysql/conf.d
+      - ./docker/mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ConfPoll
+      MYSQL_ROOT_PASSWORD: root
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - database
+    ports:
+      - "8080:80"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      PMA_HOST: database
