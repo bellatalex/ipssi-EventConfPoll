@@ -60,6 +60,7 @@
         }
     },
     "require-dev": {
+      "hautelook/alice-bundle": "^2.3",
         "symfony/profiler-pack": "^1.0"
     }
 }
