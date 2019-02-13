@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -34,11 +36,17 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="user")
+     */
+    private $event;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
         $this->setRoles(['ROLE_USER']);
+        $this->event = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -117,6 +125,37 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Like[]
+     */
+    public function getEvent(): Collection
+    {
+        return $this->event;
+    }
+
+    public function addEvent(Like $event): self
+    {
+        if (!$this->event->contains($event)) {
+            $this->event[] = $event;
+            $event->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Like $event): self
+    {
+        if ($this->event->contains($event)) {
+            $this->event->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getUser() === $this) {
+                $event->setUser(null);
+            }
+        }
+
+        return $this;
     }
 
 
