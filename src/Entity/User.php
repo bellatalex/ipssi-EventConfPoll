@@ -33,6 +33,14 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->setRoles(['ROLE_USER']);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -110,4 +118,6 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+
 }
