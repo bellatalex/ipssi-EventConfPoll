@@ -38,7 +38,7 @@ class ConferenceController extends AbstractController
     }
 
     /**
-     * Conference non notée
+     * List of conference with admin control
      * @Route("/admin/conferences/list", name="conferences_admin_list")
      */
     public function adminList(
@@ -109,8 +109,8 @@ class ConferenceController extends AbstractController
 
 
     /**
-     * Conference non notée
-     * @Route("/conferences/", name="conferences_notLiked")
+     * all Conference (public view)
+     * @Route("/conferences/", name="conferences_list")
      */
     public function conferences(
         ConferenceManager $conferenceManager
@@ -135,9 +135,9 @@ class ConferenceController extends AbstractController
     ) {
         $conference = $conferenceManager->getById($id);
 
-        $userAlreadyVote = $starsManager->didUserAlreadyVote($conference, $this->getUser());
-
         if ($conference !== null) {
+            $userAlreadyVote = $starsManager->didUserAlreadyVote($conference, $this->getUser());
+
             if (!$userAlreadyVote) {
                 $stars = new Stars();
                 $stars->setUser($this->getUser());
@@ -168,5 +168,10 @@ class ConferenceController extends AbstractController
         return $this->redirectToRoute('conferences_admin_list');
     }
 
+
+    public function notVotedConferences()
+    {
+
+    }
 
 }

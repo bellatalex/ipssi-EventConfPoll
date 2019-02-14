@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 3vh">
     <a class="navbar-brand" href="#">EnventConfPoll</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="">Conferences</a>
+                <a class="nav-link" href="{{ path('index') }}">Conferences</a>
             </li>
 
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}

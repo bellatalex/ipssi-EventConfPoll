@@ -1,10 +1,22 @@
 {% extends 'conference/conference.html.twig' %}
 
 {% block container %}
-    <h1>{{ conference.name }}</h1>
-    <p>{{ conference.name }}</p>
 
+    <div class="jumbotron">
+
+        <h1>{{ conference.name }}</h1>
+    <p>{{ conference.name }}</p>
+    </div>
     {% if form is defined %}
+        <h2>Give your mark!</h2>
+
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" alt="1 star">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" alt="1 star">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" alt="1 star">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" alt="1 star">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" alt="1 star">
+
+
         {{ form_start(form) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}
