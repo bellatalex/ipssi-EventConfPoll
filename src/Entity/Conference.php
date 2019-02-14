@@ -31,6 +31,11 @@ class Conference
      */
     private $createdDate;
 
+    public function __construct()
+    {
+        $this->createdDate = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
