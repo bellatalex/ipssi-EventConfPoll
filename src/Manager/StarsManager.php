@@ -22,7 +22,7 @@ class StarsManager
 
     public function didUserAlreadyVote(Conference $conference, User $user): bool
     {
-        $stars = $this->starsRepository->findBy(['event' => $conference->getId(), 'user' => $user->getId()]);
+        $stars = $this->starsRepository->findBy(['conference' => $conference->getId(), 'user' => $user->getId()]);
 
         return count($stars) >= 1;
     }

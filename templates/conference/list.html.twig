@@ -10,6 +10,8 @@
         <div class="jumbotron">
             <h1 class="display-6">{{ conference.name }}</h1>
 
+            {{ conference.avgStars }}/5
+
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <a class="btn btn-primary btn-lg" href="{{ path('conferences_vote', {id: conference.id}) }}"
                    role="button">Learn More & Vote</a>

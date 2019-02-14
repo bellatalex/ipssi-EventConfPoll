@@ -36,9 +36,9 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="Stars", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Stars", mappedBy="user", orphanRemoval=true)
      */
-    private $event;
+    private $stars;
 
     /**
      * User constructor.
@@ -46,7 +46,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->setRoles(['ROLE_USER']);
-        $this->event = new ArrayCollection();
+        $this->stars = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -130,33 +130,32 @@ class User implements UserInterface
     /**
      * @return Collection|Stars[]
      */
-    public function getEvent(): Collection
+    public function getStars(): Collection
     {
-        return $this->event;
+        return $this->stars;
     }
 
-    public function addEvent(Stars $event): self
+    public function addStar(Stars $star): self
     {
-        if (!$this->event->contains($event)) {
-            $this->event[] = $event;
-            $event->setUser($this);
+        if (!$this->stars->contains($star)) {
+            $this->stars[] = $star;
+            $star->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeEvent(Stars $event): self
+    public function removeStar(Stars $star): self
     {
-        if ($this->event->contains($event)) {
-            $this->event->removeElement($event);
+        if ($this->stars->contains($star)) {
+            $this->stars->removeElement($star);
             // set the owning side to null (unless already changed)
-            if ($event->getUser() === $this) {
-                $event->setUser(null);
+            if ($star->getUser() === $this) {
+                $star->setUser(null);
             }
         }
 
         return $this;
     }
-
 
 }

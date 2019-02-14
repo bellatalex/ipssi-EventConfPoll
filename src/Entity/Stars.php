@@ -17,49 +17,25 @@ class Stars
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="event")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Conference", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $event;
-
-    /**
      * @ORM\Column(type="integer", nullable=false)
      */
     private $note;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Conference", inversedBy="stars")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $conference;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="stars")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    public function getEvent(): ?Conference
-    {
-        return $this->event;
-    }
-
-    public function setEvent(Conference $event): self
-    {
-        $this->event = $event;
-
-        return $this;
     }
 
     public function getNote(): ?int
@@ -70,6 +46,30 @@ class Stars
     public function setNote(?int $note): self
     {
         $this->note = $note;
+
+        return $this;
+    }
+
+    public function getConference(): ?Conference
+    {
+        return $this->conference;
+    }
+
+    public function setConference(?Conference $conference): self
+    {
+        $this->conference = $conference;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
