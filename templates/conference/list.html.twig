@@ -1,0 +1,23 @@
+{% extends 'conference/conference.html.twig' %}
+
+{% block container %}
+
+    {% if edit is defined and edit == true %}
+        <a class="btn btn-success btn-lg" href="{{ path('conference_admin_add') }}" role="button">Add</a>
+    {% endif %}
+
+    {% for conference in conferences %}
+        <div class="jumbotron">
+            <h1 class="display-4">{{ conference.name }}</h1>
+            <p class="lead">{{ conference.description }}</p>
+            {% if edit is defined and edit == true %}
+                <a class="btn btn-primary btn-lg" href="{{ path('conferences_admin_edit', {id: conference.id}) }}"
+                   role="button">Edit</a>
+                <a class="btn btn-danger btn-lg" href="{{ path('conferences_admin_delete', {id: conference.id}) }}"
+                   role="button">Delete</a>
+            {% else %}
+                <a class="btn btn-primary btn-lg" href="#" role="button">Vote</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}
