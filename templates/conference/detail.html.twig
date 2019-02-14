@@ -1,0 +1,14 @@
+{% extends 'conference/conference.html.twig' %}
+
+{% block container %}
+    <h1>{{ conference.name }}</h1>
+    <p>{{ conference.name }}</p>
+
+    {% if form is defined %}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    {% else %}
+        <p>Vous avez déjà noté</p>
+    {% endif %}
+{% endblock %}

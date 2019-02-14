@@ -36,7 +36,7 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Stars", mappedBy="user")
      */
     private $event;
 
@@ -128,14 +128,14 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Like[]
+     * @return Collection|Stars[]
      */
     public function getEvent(): Collection
     {
         return $this->event;
     }
 
-    public function addEvent(Like $event): self
+    public function addEvent(Stars $event): self
     {
         if (!$this->event->contains($event)) {
             $this->event[] = $event;
@@ -145,7 +145,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeEvent(Like $event): self
+    public function removeEvent(Stars $event): self
     {
         if ($this->event->contains($event)) {
             $this->event->removeElement($event);

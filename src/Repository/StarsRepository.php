@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Like;
+use App\Entity\Stars;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Like|null find($id, $lockMode = null, $lockVersion = null)
- * @method Like|null findOneBy(array $criteria, array $orderBy = null)
- * @method Like[]    findAll()
- * @method Like[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Stars|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Stars|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Stars[]    findAll()
+ * @method Stars[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LikeRepository extends ServiceEntityRepository
+class StarsRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Like::class);
+        parent::__construct($registry, Stars::class);
     }
 
     // /**
-    //  * @return Like[] Returns an array of Like objects
+    //  * @return Stars[] Returns an array of Stars objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class LikeRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Like
+    public function findOneBySomeField($value): ?Stars
     {
         return $this->createQueryBuilder('l')
             ->andWhere('l.exampleField = :val')

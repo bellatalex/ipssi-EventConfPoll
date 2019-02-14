@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Conference;
+use App\Entity\Stars;
 use App\Form\ConferenceAddType;
+use App\Form\StarsType;
 use App\Manager\ConferenceManager;
+use App\Manager\StarsManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -119,6 +122,51 @@ class ConferenceController extends AbstractController
         ]);
     }
 
+    /**
+     * Conference vote
+     * @Route("/conferences/vote/{id}", name="conferences_vote")
+     */
+    public function vote(
+        ConferenceManager $conferenceManager,
+        EntityManagerInterface $entityManager,
+        StarsManager $starsManager,
+        int $id,
+        Request $request
+    ) {
+        $conference = $conferenceManager->getById($id);
+
+        $userAlreadyVote = $starsManager->didUserAlreadyVote($conference, $this->getUser());
+
+        if ($conference !== null) {
+            if (!$userAlreadyVote) {
+                $stars = new Stars();
+                $stars->setUser($this->getUser());
+                $stars->setEvent($conference);
+
+                $form = $this->createForm(StarsType::class, $stars);
+
+                $form->handleRequest($request);
+
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $entityManager->persist($stars);
+                    $entityManager->flush();
+                    return $this->redirectToRoute('conferences_admin_list');
+                }
+
+                return $this->render('conference/detail.html.twig', [
+                    'form' => $form->createView(),
+                    'conference' => $conference
+                ]);
+            }
+
+            return $this->render('conference/detail.html.twig', [
+                'conference' => $conference
+            ]);
+        }
+
+        $this->addFlash('danger', 'This conference not exist.');
+        return $this->redirectToRoute('conferences_admin_list');
+    }
 
 
 }

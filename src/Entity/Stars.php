@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\LikeRepository")
+ * @ORM\Entity(repositoryClass="StarsRepository")
  */
-class Like
+class Stars
 {
     /**
      * @ORM\Id()
@@ -29,7 +29,7 @@ class Like
     private $event;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $note;
 
