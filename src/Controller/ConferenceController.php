@@ -219,4 +219,18 @@ class ConferenceController extends AbstractController
         ]);
     }
 
+    /**
+     * Search method for search bar
+     * @param string $search
+     * @Route("/conferences/search", name="searchBar")
+     */
+    public function searchbar(ConferenceManager $conferenceManager){
+        $search = $_POST['search'];
+        $conferences = $conferenceManager->findBySearch($search);
+
+        return $this->render('conference/list.html.twig', [
+            'conferences' => $conferences
+        ]);
+    }
+
 }

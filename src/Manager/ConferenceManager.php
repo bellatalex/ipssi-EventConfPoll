@@ -30,5 +30,9 @@ class ConferenceManager
     {
         return $this->conferenceRepository->find($id);
     }
+    public function findBySearch(string $search)
+    {
+        return $this->conferenceRepository->findBySearch($search);
+    }
 
 }

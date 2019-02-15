@@ -48,4 +48,12 @@ class ConferenceRepository extends ServiceEntityRepository
         ;
     }
     */
+    public  function findBySearch(string $search)
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.name LIKE :name')
+            ->setParameter('name','%'.$search.'%')
+            ->getQuery()
+            ->getResult();
+    }
 }

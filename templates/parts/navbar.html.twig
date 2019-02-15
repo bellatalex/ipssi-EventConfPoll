@@ -16,12 +16,15 @@
                     <a class="nav-link" href="{{ path('conferences_admin_list') }}">Manage conferences</a>
                 </li>
             {% endif %}
-
         </ul>
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <div class="navbar-nav my-2 my-lg-0">
+                <form class="form-inline my-2 my-lg-0" method="post" action="{{ path('searchBar') }}">
+                    <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('logout') }}">Déconnexion</a>
+                    <a class="nav-link" href="{{ path('logout') }}">Logout</a>
                 </li>
             </div>
         {% else %}
