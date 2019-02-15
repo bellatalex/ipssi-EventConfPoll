@@ -4,6 +4,12 @@
 
     {% if edit is defined and edit == true %}
         <a class="btn btn-success btn-lg" href="{{ path('conference_admin_add') }}" role="button">Add</a>
+
+    {% else %}
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <a class="btn btn-primary btn-lg" href="{{ path('conferences_notVoted') }}" role="button">Not voted</a>
+            <a class="btn btn-primary btn-lg" href="{{ path('conferences_voted') }}" role="button">Voted</a>
+        {% endif %}
     {% endif %}
 
     {% for conference in conferences %}
