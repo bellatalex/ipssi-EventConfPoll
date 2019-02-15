@@ -8,7 +8,9 @@ use App\Form\ConferenceAddType;
 use App\Form\StarsType;
 use App\Manager\ConferenceManager;
 use App\Manager\StarsManager;
+use App\Manager\UserManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +21,7 @@ class ConferenceController extends AbstractController
     /**
      * @Route("/admin/conferences/add", name="conference_admin_add")
      */
-    public function adminAdd(EntityManagerInterface $entityManager, Request $request)
+    public function adminAdd(EntityManagerInterface $entityManager, Request $request, Swift_Mailer $swift_Mailer, UserManager $userManager)
     {
         $conference = new Conference();
         $form = $this->createForm(ConferenceAddType::class, $conference);
@@ -29,6 +31,9 @@ class ConferenceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($conference);
             $entityManager->flush();
+
+            $this->sendMail($conference->getName(), $swift_Mailer, $userManager->getAllUserEmail());
+
             return $this->redirectToRoute('conferences_admin_list');
         }
 
@@ -231,6 +236,31 @@ class ConferenceController extends AbstractController
         return $this->render('conference/list.html.twig', [
             'conferences' => $conferences
         ]);
+    }
+    public function sendMail($name, \Swift_Mailer $mailer, array $userMails)
+    {
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('do-not-reply@event-conf-poll.com')
+            ->setBcc($userMails)
+            ->setBody(
+                $this->renderView(
+                // templates/emails/registration.html.twig
+                    'emails/registration.html.twig',
+                    ['name' => $name]
+                ),
+                'text/html'
+            )/*
+             * If you also want to include a plaintext version of the message
+            ->addPart(
+                $this->renderView(
+                    'emails/registration.txt.twig',
+                    ['name' => $name]
+                ),
+                'text/plain'
+            )
+            */
+        ;
+        $mailer->send($message);
     }
 
     /**
