@@ -1,0 +1,16 @@
+{% extends 'user/user.html.twig' %}
+
+{% block container %}
+    <table class="table">
+        {% for user in users %}
+            <tr>
+                <td>
+                    {{ user.email }}
+                </td>
+                <td>
+                    <a href="{{ path('user_admin_delete', {id: user.id}) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

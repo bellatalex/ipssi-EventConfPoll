@@ -43,7 +43,7 @@ class AppFixtures extends Fixture
         $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
-            'test'
+            'admin'
         ));
 
         $manager->persist($user);

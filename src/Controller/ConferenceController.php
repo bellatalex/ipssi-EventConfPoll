@@ -8,7 +8,6 @@ use App\Form\ConferenceAddType;
 use App\Form\StarsType;
 use App\Manager\ConferenceManager;
 use App\Manager\StarsManager;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -242,7 +241,7 @@ class ConferenceController extends AbstractController
     {
         $conferences = $conferenceManager->findTopConf();
 
-        return $this->render('conference/list.html.twig', [
+        return $this->render('/list.html.twig', [
             'conferences' => $conferences
         ]);
     }
@@ -250,17 +249,20 @@ class ConferenceController extends AbstractController
     /**
      * @Route("/amdin/conferences/deleteAll", name="deleteAll")
      */
-    public function deleteAll(ConferenceManager $conferenceManager, EntityManagerInterface $entityManager, StarsManager $starsManager)
-    {
+    public function deleteAll(
+        ConferenceManager $conferenceManager,
+        EntityManagerInterface $entityManager,
+        StarsManager $starsManager
+    ) {
         $conferences = $conferenceManager->getAll();
-        foreach ($conferences as $item){
+        foreach ($conferences as $item) {
             $entityManager->remove($item);
             $entityManager->flush();
         }
 
 
         $stars = $starsManager->getAll();
-        foreach ($stars as $item){
+        foreach ($stars as $item) {
             $entityManager->remove($item);
             $entityManager->flush();
         }
