@@ -9,6 +9,7 @@
 namespace App\Manager;
 
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 
 class UserManager
@@ -23,6 +24,11 @@ class UserManager
     public function getAll(): ?array
     {
         return $this->userRepository->findAll();
+    }
+
+    public function getOne(int $id): ?User
+    {
+        return $this->userRepository->find($id);
     }
 
     public function getAllUserEmail() :?array{
