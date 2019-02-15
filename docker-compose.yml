@@ -34,3 +34,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       PMA_HOST: database
+
+  mailhogs:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
