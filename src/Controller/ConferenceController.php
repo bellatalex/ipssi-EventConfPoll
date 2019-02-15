@@ -271,7 +271,7 @@ class ConferenceController extends AbstractController
     {
         $conferences = $conferenceManager->findTopConf();
 
-        return $this->render('/list.html.twig', [
+        return $this->render('conference/list.html.twig', [
             'conferences' => $conferences
         ]);
     }

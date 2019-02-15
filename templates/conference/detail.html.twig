@@ -2,24 +2,146 @@
 
 {% block container %}
 
+    <style>
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            margin: 8.75px 0;
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 5.5px;
+            cursor: pointer;
+            box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+            background: #2fa4e5;
+            border-radius: 25px;
+            border: 0px solid rgba(1, 1, 1, 0);
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+            border: 2.2px solid #000000;
+            height: 23px;
+            width: 23px;
+            border-radius: 50px;
+            background: #ffffff;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -8.75px;
+        }
+
+        input[type=range]:focus::-webkit-slider-runnable-track {
+            background: #34a6e6;
+        }
+
+        input[type=range]::-moz-range-track {
+            width: 100%;
+            height: 5.5px;
+            cursor: pointer;
+            box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+            background: #2fa4e5;
+            border-radius: 25px;
+            border: 0px solid rgba(1, 1, 1, 0);
+        }
+
+        input[type=range]::-moz-range-thumb {
+            box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+            border: 2.2px solid #000000;
+            height: 23px;
+            width: 23px;
+            border-radius: 50px;
+            background: #ffffff;
+            cursor: pointer;
+        }
+
+        input[type=range]::-ms-track {
+            width: 100%;
+            height: 5.5px;
+            cursor: pointer;
+            background: transparent;
+            border-color: transparent;
+            color: transparent;
+        }
+
+        input[type=range]::-ms-fill-lower {
+            background: #2aa2e4;
+            border: 0px solid rgba(1, 1, 1, 0);
+            border-radius: 50px;
+            box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        }
+
+        input[type=range]::-ms-fill-upper {
+            background: #2fa4e5;
+            border: 0px solid rgba(1, 1, 1, 0);
+            border-radius: 50px;
+            box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        }
+
+        input[type=range]::-ms-thumb {
+            box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+            border: 2.2px solid #000000;
+            height: 23px;
+            width: 23px;
+            border-radius: 50px;
+            background: #ffffff;
+            cursor: pointer;
+            height: 5.5px;
+        }
+
+        input[type=range]:focus::-ms-fill-lower {
+            background: #2fa4e5;
+        }
+
+        input[type=range]:focus::-ms-fill-upper {
+            background: #34a6e6;
+        }
+
+    </style>
+
     <div class="jumbotron">
 
         <h1>{{ conference.name }}</h1>
-    <p>{{ conference.name }}</p>
+        <p>{{ conference.name }}</p>
     </div>
     {% if form is defined %}
         <h2>Give your mark!</h2>
 
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" alt="1 star">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" alt="1 star">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" alt="1 star">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" alt="1 star">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" alt="1 star">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" width="30px" height="30px"
+             id="star1" alt="1 star">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" width="30px" height="30px"
+             id="star2" alt="1 star">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" width="30px" height="30px"
+             id="star3" alt="1 star">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" width="30px" height="30px"
+             id="star4" alt="1 star">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" width="30px" height="30px"
+             id="star5" alt="1 star">
 
 
         {{ form_start(form) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}
+
+
+        <script>
+            $("#stars_note").change(function () {
+                let value = this.value;
+                for (let i = 1; i <= value; i++) {
+                    $('#star' + i).show();
+                }
+                value++;
+                for (let i = value; i <= 5; i++) {
+                    $('#star' + i).hide();
+                }
+            });
+        </script>
+
+
     {% else %}
         <p>Vous avez déjà noté</p>
     {% endif %}
