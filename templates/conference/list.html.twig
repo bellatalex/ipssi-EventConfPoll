@@ -4,20 +4,41 @@
 
     {% if edit is defined and edit == true %}
         <a class="btn btn-success btn-lg" href="{{ path('conference_admin_add') }}" role="button">Add</a>
+
+    {% else %}
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <a class="btn btn-primary btn-lg" href="{{ path('conferences_notVoted') }}" role="button">Not voted</a>
+            <a class="btn btn-primary btn-lg" href="{{ path('conferences_voted') }}" role="button">Voted</a>
+        {% endif %}
     {% endif %}
 
     {% for conference in conferences %}
         <div class="jumbotron">
-            <h1 class="display-4">{{ conference.name }}</h1>
-            <p class="lead">{{ conference.description }}</p>
-            {% if edit is defined and edit == true %}
-                <a class="btn btn-primary btn-lg" href="{{ path('conferences_admin_edit', {id: conference.id}) }}"
-                   role="button">Edit</a>
-                <a class="btn btn-danger btn-lg" href="{{ path('conferences_admin_delete', {id: conference.id}) }}"
-                   role="button">Delete</a>
+            <h1 class="display-6">{{ conference.name }}</h1>
+
+            {{ conference.avgStars }}/5
+
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <a class="btn btn-primary btn-lg" href="{{ path('conferences_vote', {id: conference.id}) }}"
+                   role="button">Learn More & Vote</a>
+
+                {% if edit is defined and edit == true %}
+                    <a class="btn btn-primary btn-lg" href="{{ path('conferences_admin_edit', {id: conference.id}) }}"
+                       role="button">Edit</a>
+                    <a class="btn btn-danger btn-lg" href="{{ path('conferences_admin_delete', {id: conference.id}) }}"
+                       role="button">Delete</a>
+                {% endif %}
+
             {% else %}
-                <a class="btn btn-primary btn-lg" href="#" role="button">Vote</a>
+                <p>{{ conference.description }}</p>
+
+                <a class="btn btn-primary btn-lg" href="{{ path('login') }}"
+                   role="button">You must be logged to vote</a>
             {% endif %}
+
         </div>
     {% endfor %}
+
+
+
 {% endblock %}
