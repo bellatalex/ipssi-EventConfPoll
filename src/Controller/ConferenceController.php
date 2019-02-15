@@ -246,4 +246,27 @@ class ConferenceController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/amdin/conferences/deleteAll", name="deleteAll")
+     */
+    public function deleteAll(
+        ConferenceManager $conferenceManager,
+        EntityManagerInterface $entityManager,
+        StarsManager $starsManager
+    ) {
+        $conferences = $conferenceManager->getAll();
+        foreach ($conferences as $item) {
+            $entityManager->remove($item);
+            $entityManager->flush();
+        }
+
+
+        $stars = $starsManager->getAll();
+        foreach ($stars as $item) {
+            $entityManager->remove($item);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute("index");
+    }
+
 }
