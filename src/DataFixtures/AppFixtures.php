@@ -29,7 +29,7 @@ class AppFixtures extends Fixture
         for ($i = 0; $i <= 5; $i++) {
             $conference = new Conference();
             $conference->setName($i . ' ' . $this->getRandomWord(10));
-            $conference->setDescription($this->getRandomWord());
+            $conference->setDescription(implode(' ', str_split($this->getRandomWord(50), 5)));
             $conferences[] = $conference;
             $manager->persist($conference);
 
