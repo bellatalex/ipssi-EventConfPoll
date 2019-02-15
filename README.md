@@ -1,27 +1,45 @@
-## Getting Started
+## Presentation
+#
+Internet a permis de révolution la manière de communiquer et avec ses évolutions est venu de nouveau besoin.
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+En effet pour les communautés, la facilité de communication a permis de structurer et même de regrouper des passionnées. Mais ses communautés ont un autre besoin, en effet quoi de mieux pour parler de quelque chose que de la faire en face a face. 
 
-### Prerequisites
+C’est pour cela que des meet-up ou autre évènement avec différents intervenants sont organisés partout dans le monde. 
+Mais afin de favoriser le sentiment d’appartenance, et donc l’implications des membres de cette communauté dans celle-ci. 
 
-What things you need to install the software and how to install them?
+Nous avons donc créé un site permettant de voter les conférences les plus demander afin de les inclure dans le prochain évènement.
 
-- [Docker CE](https://www.docker.com/community-edition)
-- [Docker Compose](https://docs.docker.com/compose/install)
+#
+### Installation
+Ce projet a été développé grâce au Framework Symfony sur une semaine grâce à une équipe de 3 développeurs (Alexandre Giannetto, Enzo Borges et Alex Bellata).
+ 
+Les utilisateurs peuvent donc voir les conférences qu’ils n’ont pas encore notées, toutes les conférences ainsi que le top 10 des conférences.
 
-### Install
 
-- (optional) Create your `docker-compose.override.yml` file
+Pour les rôles admins il y a une page permettant de modifier et supprimé les conférences, une permettant de supprimer des utilisateurs ainsi qu’un bouton permettant de supprimer tout les likes et conférences afin de remettre a zéro le site web.
 
+
+Voici les différentes informations nécessaires pour faire fonctionner cette application sur votre local host.
+	Installer le serveur et les fichiers, symfony ainsi que la base de données de grâce a docker :
+
+- Recuperation des fichier 
 ```bash
-cp docker-compose.override.yml.dist docker-compose.override.yml
+git clone https://github.com/bellatalex/ipssi-EventConfPoll
+cd  ipssi-EventConfPoll
 ```
-> Notice : Check the file content. If other containers use the same ports, change yours.
 
-#### Init
-
+- Intallation de symfony et de la bdd
 ```bash
-cp .env.dist .env
-docker-compose up -d
-docker-compose exec --user=application web composer install
+docker-compose up
+docker-compose exec web php bin/console doctrine:fixtures:load
 ```
+
+##Informations importantes
+- Adresse mailhogs :
+http://localhost:8025/
+
+
+- Admin<br/>
+  id :      admin@site.com <br/>
+  pswd :    admin
+       
