@@ -47,4 +47,16 @@ class StarsRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findTopConf()
+    {
+        //SELECT AVG(note), c.name FROM stars s, conference c WHERE s.conference_id = c.id GROUP BY s.conference_id ORDER BY AVG(note) desc
+        return $this->createQueryBuilder('s')
+            ->select('AVG(s.note) as avgStars, c.name, c.id, c.description, c.createdDate')
+            ->join('s.conference','c')
+            ->groupBy('s.conference')
+            ->orderBy('avgStars','desc')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
 }

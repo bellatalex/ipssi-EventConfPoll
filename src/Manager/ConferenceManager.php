@@ -10,15 +10,19 @@ namespace App\Manager;
 
 
 use App\Entity\Conference;
+use App\Entity\Stars;
 use App\Repository\ConferenceRepository;
+use App\Repository\StarsRepository;
 
 class ConferenceManager
 {
     private $conferenceRepository;
+    private $starsRepository;
 
-    public function __construct(ConferenceRepository $conferenceRepository)
+    public function __construct(ConferenceRepository $conferenceRepository, StarsRepository $starsRepository)
     {
         $this->conferenceRepository = $conferenceRepository;
+        $this->starsRepository = $starsRepository;
     }
 
     public function getAll(): ?array
@@ -34,5 +38,8 @@ class ConferenceManager
     {
         return $this->conferenceRepository->findBySearch($search);
     }
-
+    public function findTopConf()
+    {
+        return $this->starsRepository->findTopConf();
+    }
 }
