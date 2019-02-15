@@ -31,6 +31,9 @@ cd  ipssi-EventConfPoll
 - Intallation de symfony et de la bdd
 ```bash
 docker-compose up
+```
+- Génération de données fictives
+```bash
 docker-compose exec web php bin/console doctrine:fixtures:load
 ```
 
