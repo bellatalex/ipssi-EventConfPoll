@@ -15,6 +15,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('conferences_admin_list') }}">Manage conferences</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-danger" href="{{ path('deleteAll') }}">Purge Like & Conferences</a>
+                </li>
             {% endif %}
         </ul>
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}

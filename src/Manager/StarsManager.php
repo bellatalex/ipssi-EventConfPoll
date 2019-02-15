@@ -15,6 +15,11 @@ class StarsManager
         $this->starsRepository = $starsRepository;
     }
 
+    public function getAll(): ?array
+    {
+        return $this->starsRepository->findAll();
+    }
+
     public function getLikeByConf(int $event): ?array
     {
         return $this->starsRepository->findBy(['event' => $event]);
