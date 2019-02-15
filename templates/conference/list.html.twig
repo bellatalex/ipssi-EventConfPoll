@@ -4,35 +4,41 @@
 
     {% if edit is defined and edit == true %}
         <a class="btn btn-success btn-lg" href="{{ path('conference_admin_add') }}" role="button">Add</a>
-
+        <a class="btn btn-danger btn-lg" href="{{ path('deleteAll') }}">Purge Like & Conferences</a>
     {% else %}
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <a class="btn btn-primary btn-lg" href="{{ path('conferences_notVoted') }}" role="button">Not voted</a>
             <a class="btn btn-primary btn-lg" href="{{ path('conferences_voted') }}" role="button">Voted</a>
         {% endif %}
     {% endif %}
+    <br>
+    <br>
 
     {% for conference in conferences %}
         <div class="jumbotron">
             <h1 class="display-6">{{ conference.name }}</h1>
 
-            {{ conference.avgStars }}/5
+            {{ conference.avgStars|round }}/5 <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/51/Star_full.svg" width="40px" height="40px"
+                    alt="star">
 
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                <a class="btn btn-primary btn-lg" href="{{ path('conferences_vote', {id: conference.id}) }}"
+                <br>
+                <br>
+                <a class="btn btn-primary" href="{{ path('conferences_vote', {id: conference.id}) }}"
                    role="button">Learn More & Vote</a>
 
                 {% if edit is defined and edit == true %}
-                    <a class="btn btn-primary btn-lg" href="{{ path('conferences_admin_edit', {id: conference.id}) }}"
+                    <a class="btn btn-primary" href="{{ path('conferences_admin_edit', {id: conference.id}) }}"
                        role="button">Edit</a>
-                    <a class="btn btn-danger btn-lg" href="{{ path('conferences_admin_delete', {id: conference.id}) }}"
+                    <a class="btn btn-danger" href="{{ path('conferences_admin_delete', {id: conference.id}) }}"
                        role="button">Delete</a>
                 {% endif %}
 
             {% else %}
                 <p>{{ conference.description }}</p>
 
-                <a class="btn btn-primary btn-lg" href="{{ path('login') }}"
+                <a class="btn btn-primary" href="{{ path('login') }}"
                    role="button">You must be logged to vote</a>
             {% endif %}
 
