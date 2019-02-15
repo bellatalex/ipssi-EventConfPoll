@@ -262,4 +262,18 @@ class ConferenceController extends AbstractController
         ;
         $mailer->send($message);
     }
+
+    /**
+     * 10 Top Conferences
+     * @Route("/conferences/topConf", name="topConf")
+     */
+    public function topConf(ConferenceManager $conferenceManager)
+    {
+        $conferences = $conferenceManager->findTopConf();
+
+        return $this->render('conference/list.html.twig', [
+            'conferences' => $conferences
+        ]);
+    }
+
 }
